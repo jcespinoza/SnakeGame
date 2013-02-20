@@ -6,9 +6,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    renderer = new RenderArea(this);
+    ui->grid->addWidget(renderer);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete renderer;
 }
