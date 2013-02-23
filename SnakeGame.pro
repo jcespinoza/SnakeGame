@@ -14,9 +14,13 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    renderarea.cpp
+    renderarea.cpp \
+    graphicelement.cpp \
+    snakepart.cpp
 
 HEADERS  += mainwindow.h \
-    renderarea.h
+    renderarea.h \
+    graphicelement.h \
+    snakepart.h
 
 FORMS    += mainwindow.ui
