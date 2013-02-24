@@ -1,6 +1,7 @@
 #ifndef GRAPHICELEMENT_H
 #define GRAPHICELEMENT_H
 
+#include <QPainter>
 /**
  * @brief The GraphicElement class
  * An abstract class for graphic elements in the game.

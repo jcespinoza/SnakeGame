@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "renderarea.h"
+#include "gamecontroller.h"
 
 namespace Ui {
 class MainWindow;
@@ -19,6 +19,7 @@ public:
 private:
     Ui::MainWindow *ui;
     RenderArea* renderer;
+    GameController* controller;
 };
 
 #endif // MAINWINDOW_H

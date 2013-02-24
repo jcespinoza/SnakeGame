@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     renderer = new RenderArea(this);
+    controller = new GameController();
     ui->grid->addWidget(renderer);
 }
 
@@ -14,4 +15,5 @@ MainWindow::~MainWindow()
 {
     delete ui;
     delete renderer;
+    delete controller;
 }
