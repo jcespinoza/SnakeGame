@@ -16,8 +16,8 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     renderarea.cpp \
     graphicelement.cpp \
-    snakepart.cpp \
-    gamecontroller.cpp
+    gamecontroller.cpp \
+    snake.cpp
 
 HEADERS  += mainwindow.h \
     renderarea.h \
