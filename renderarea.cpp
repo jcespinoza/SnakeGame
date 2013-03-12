@@ -4,6 +4,7 @@ RenderArea::RenderArea(QWidget *parent) :
     QWidget(parent)
 {
     resize(1000, 600);
+    setFocusPolicy(Qt::TabFocus);
 }
 
 void RenderArea::paintEvent(QPaintEvent *){

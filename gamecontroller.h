@@ -2,7 +2,7 @@
 #define GAMECONTROLLER_H
 #include <QTimer>
 #include "renderarea.h"
-#include "snakepart.h"
+#include "snake.h"
 class GameController: public QObject
 {
     Q_OBJECT

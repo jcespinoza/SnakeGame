@@ -25,6 +25,7 @@ HEADERS  += mainwindow.h \
     graphicelement.h \
     gamecontroller.h \
     snakepart.h \
-    snakelist.h
+    snakelist.h \
+    snake.h
 
 FORMS    += mainwindow.ui

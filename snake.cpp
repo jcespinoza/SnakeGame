@@ -1,4 +1,4 @@
-#include "snakepart.h"
+#include "snake.h"
 
 Snake::Snake():GraphicElement(){
 
@@ -11,3 +11,4 @@ Snake::Snake(int x, int y, int z):GraphicElement(x, y, z){
 void Snake::paint(QPainter *){
 
 }
+
