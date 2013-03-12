@@ -9,5 +9,5 @@ RenderArea::RenderArea(QWidget *parent) :
 void RenderArea::paintEvent(QPaintEvent *){
     QPainter painter(this);
     painter.setBrush(Qt::white);
-    painter.drawRect(0,0, width(), height());
+    painter.drawRect(0,0, geometry().width()-1, geometry().height()-1);
 }

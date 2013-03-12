@@ -1,13 +1,13 @@
 #include "snakepart.h"
 
-SnakePart::SnakePart()
-{
+Snake::Snake():GraphicElement(){
+
+}
+
+Snake::Snake(int x, int y, int z):GraphicElement(x, y, z){
+
 }
 
 void Snake::paint(QPainter *){
-
-}
-
-void SnakePart::paint(QPainter *){
 
 }

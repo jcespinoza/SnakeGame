@@ -12,6 +12,8 @@ public:
 
 class Snake: public GraphicElement{
 public:
+    Snake();
+    Snake(int x, int y, int z);
     void advance();
     /**
      * @brief paint

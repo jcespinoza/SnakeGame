@@ -17,12 +17,14 @@ SOURCES += main.cpp\
     renderarea.cpp \
     graphicelement.cpp \
     gamecontroller.cpp \
-    snake.cpp
+    snake.cpp \
+    snakelist.cpp
 
 HEADERS  += mainwindow.h \
     renderarea.h \
     graphicelement.h \
     gamecontroller.h \
-    snakepart.h
+    snakepart.h \
+    snakelist.h
 
 FORMS    += mainwindow.ui

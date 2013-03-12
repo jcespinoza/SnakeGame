@@ -13,6 +13,8 @@ public:
         SNAKE_ELEMENT, HEAD, FOOD
     };
     GraphicElement();
+	GraphicElement(int x, int y, int z);
+    GraphicElement(GraphicElement*);
     virtual void paint(QPainter*)=0;
     int getType()const {return type;}
     virtual void setX(int a){x = a;}
