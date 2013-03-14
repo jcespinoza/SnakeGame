@@ -5,6 +5,8 @@
 #include <QDebug>
 #include <QPainter>
 #include <QPaintEvent>
+#include <QList>
+#include "graphicelement.h"
 
 class RenderArea : public QWidget
 {
@@ -19,6 +21,7 @@ private:
      */
     void paintEvent(QPaintEvent *);
     //ListOfGraphicElements* list;
+    QList<GraphicElement*> lista;
 signals:
     
 public slots:

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>999</width>
-    <height>682</height>
+    <height>693</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,6 +24,19 @@
      </rect>
     </property>
     <layout class="QGridLayout" name="grid"/>
+   </widget>
+   <widget class="QLabel" name="lbTime">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>620</y>
+      <width>46</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

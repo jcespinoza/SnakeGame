@@ -3,21 +3,29 @@
 #include <QTimer>
 #include "renderarea.h"
 #include "snake.h"
+#include "snakepart.h"
+
 class GameController: public QObject
 {
     Q_OBJECT
 public:
     explicit GameController();
     void setRenderer(RenderArea*);
+    ~GameController();
+    RenderArea* getRenderer(){return renderer;}
+signals:
+    void pTimeOutS();
 private slots:
-
+    void pTimeOut();
 signals:
 
 private:
-    QTimer timer;
+    QTimer *elapsed;
+    QTimer* refresher;
     RenderArea* renderer;
     Snake* snake1;
     Snake* snake2;
+
 };
 
 #endif // GAMECONTROLLER_H

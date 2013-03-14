@@ -20,6 +20,9 @@ private:
     Ui::MainWindow *ui;
     RenderArea* renderer;
     GameController* controller;
+    int segundos;
+public slots:
+    void updateTime();
 };
 
 #endif // MAINWINDOW_H
