@@ -16,5 +16,5 @@ void Snake::paint(QPainter *painter){
 }
 
 void Snake::advance(){
-
+    members->advanceItems();
 }

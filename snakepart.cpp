@@ -1,6 +1,6 @@
 #include "snakepart.h"
 
-SnakePart(){
+SnakePart::SnakePart(){
 
 }
 
@@ -12,16 +12,16 @@ void SnakePart::paint(QPainter *painter){
 void SnakePart::advance(){
     switch(getDirection()){
         case GraphicElement::UP:
-            y -= 20;
+            setY(getY()-20);
             break;
         case GraphicElement::DOWN:
-            y += 20;
+            setY(getY()+20);
             break;
         case GraphicElement::LEFT:
-            x -= 20;
+            setX(getX()-20);
             break;
         case GraphicElement::RIGHT:
-            x += 20;
+            setX(getX()+20);
             break;
     }
 }

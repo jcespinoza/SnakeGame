@@ -24,6 +24,5 @@ GameController::~GameController(){
     delete refresher;
     delete snake1;
     delete snake2;
-    qDebug() << "got here";
     delete renderer;
 }

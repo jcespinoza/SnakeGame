@@ -30,6 +30,7 @@ public:
     SnakePart* take(int);
     bool isEmpty();
     int count() const{return countP;}
+    void advanceItems();
     ~SnakeList();
 private:
     Nodo* first;

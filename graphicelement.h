@@ -15,6 +15,7 @@ public:
     enum DIRECTION{
         UP, RIGHT, DOWN,LEFT
     };
+    static const int SIZE = 20;
     GraphicElement();
 	GraphicElement(int x, int y, int z);
     GraphicElement(GraphicElement*);

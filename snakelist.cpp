@@ -144,3 +144,19 @@ void SnakeList::insert(SnakePart* con, int pos){
         countP++;
     }
 }
+
+void SnakeList::advanceItems(){
+    goToLast();
+    for(int i = 0; i < count(); i++){
+        SnakePart* act = get();
+        SnakePart* previ = 0;
+        if(current->prev != 0)
+            previ = current->prev->content;
+        if(previ != 0 && act != 0){
+            act->setDirection(previ->getDirection());
+            act->setX(previ->getX());
+            act->setY(previ->getY());
+            act->setZ(previ->getZ());
+        }
+    }
+}
