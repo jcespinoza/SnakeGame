@@ -1,27 +1,33 @@
 #include "snakepart.h"
 
 SnakePart::SnakePart(){
-
+    setDirection(GraphicElement::UP);
+    value = -1;
+    setX(-1);
+    setY(-1);
+    setZ(-1);
+    setWidth(20);
+    setHeight(20);
 }
 
 void SnakePart::paint(QPainter *painter){
     painter->setBrush(Qt::black);
-    painter->drawRect(20,20,20,20);
+    painter->drawRect(getX(),getY(),getWidth(),getHeight());
 }
 
 void SnakePart::advance(){
     switch(getDirection()){
         case GraphicElement::UP:
-            setY(getY()-20);
+            setY(getY()-getHeight());
             break;
         case GraphicElement::DOWN:
-            setY(getY()+20);
+            setY(getY()+getHeight());
             break;
         case GraphicElement::LEFT:
-            setX(getX()-20);
+            setX(getX()-getWidth());
             break;
         case GraphicElement::RIGHT:
-            setX(getX()+20);
+            setX(getX()+getWidth());
             break;
     }
 }

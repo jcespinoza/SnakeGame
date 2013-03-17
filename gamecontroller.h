@@ -13,6 +13,8 @@ public:
     void setRenderer(RenderArea*);
     ~GameController();
     RenderArea* getRenderer(){return renderer;}
+    void processKey(int);
+    void processDirection(int, int);
 signals:
     void pTimeOutS();
 private slots:

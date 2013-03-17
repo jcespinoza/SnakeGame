@@ -12,7 +12,19 @@ void RenderArea::paintEvent(QPaintEvent *){
     QPainter painter(this);
     painter.setBrush(Qt::white);
     painter.drawRect(0,0, geometry().width()-1, geometry().height()-1);
-    for(int i = 0; i < 0; i++){
-        lista.at(0)->paint(&painter);
+    for(int i = 0; i < lista.count(); i++){
+        lista.at(i)->paint(&painter);
     }
+}
+
+void RenderArea::focusInEvent(QFocusEvent *){
+    grabKeyboard();
+}
+
+void RenderArea::focusOutEvent(QFocusEvent *){
+    releaseKeyboard();
+}
+
+void RenderArea::enterEvent(QEvent *){
+    setFocus();
 }

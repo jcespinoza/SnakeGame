@@ -24,3 +24,7 @@ void MainWindow::updateTime(){
     segundos++;
     ui->lbTime->setText(QString::number(segundos));
 }
+
+void MainWindow::keyPressEvent(QKeyEvent *event){
+    controller->processKey(event->key());
+}

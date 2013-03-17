@@ -20,6 +20,9 @@ private:
      *on each element of the list;
      */
     void paintEvent(QPaintEvent *);
+    void focusInEvent(QFocusEvent *);
+    void focusOutEvent(QFocusEvent *);
+    void enterEvent(QEvent *);
     //ListOfGraphicElements* list;
     QList<GraphicElement*> lista;
 signals:

@@ -14,9 +14,23 @@ public:
      * and call the paint() method on each element
      */
     virtual void paint(QPainter *);
+    int getScore() const{return score;}
+    void addHead(SnakePart*);
+    void addPart(SnakePart*);
+    int getCount() const{return members->count();}
+    SnakePart* getPart(int pos);
+    void resetSnake();
+    bool colisionWall();
+    void removeHead();
+
 
 
 private:
     SnakeList* members;
+    int score;
+    int maxWidth;
+    int maxHeight;
+    int partSize;
+    QColor color;
 };
 #endif // SNAKE_H

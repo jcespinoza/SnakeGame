@@ -29,9 +29,15 @@ public:
     int getZ() const{return z;}
     int getDirection()const{return dir;}
     void setDirection(int arg){dir = arg;}
+    QColor getFillColor()const{return fill;}
+    void setFillColor(QColor c){fill = c;}
+    QColor getOutlineColor()const{return outline;}
+    void setOutlineColor(QColor o){outline = o;}
 private:
     int type, x, y, z;
     int dir;
+    QColor fill;
+    QColor outline;
 };
 
 #endif // GRAPHICELEMENT_H

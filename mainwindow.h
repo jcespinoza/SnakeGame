@@ -23,6 +23,8 @@ private:
     int segundos;
 public slots:
     void updateTime();
+protected:
+    virtual void keyPressEvent(QKeyEvent *);
 };
 
 #endif // MAINWINDOW_H
