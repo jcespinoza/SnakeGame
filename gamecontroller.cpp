@@ -98,6 +98,9 @@ void GameController::startGame(){
     SnakePart* p1 = new SnakePart();
     p1->setValue(7);
     snake1->addPart(p1);
+    SnakePart* p2 = new SnakePart();
+    p2->setValue(6);
+    snake1->addPart(p2);
 
     SnakePart* h2 = new SnakePart();
     h2->setDirection(h2->DOWN);
