@@ -102,7 +102,7 @@ void GameController::startGame(){
     SnakePart* h2 = new SnakePart();
     h2->setDirection(h2->DOWN);
     h2->setX(200); h2->setY(200);
-    h2->setValue(9);
+    h2->setValue(8);
     snake2->addHead(h2);
     snake2->setFillColor(Qt::blue);
     snake2->setMaxHeight(600);
@@ -112,7 +112,7 @@ void GameController::startGame(){
     renderer->addGraphicElement(snake2);
 
     if(!refresher->isActive()){
-        refresher->start(2000);
+        refresher->start(100);
     }
 
 }
@@ -122,6 +122,6 @@ void GameController::updateGraphics(){
         snake1->advance();
     }
     if(!snake2->colisionWall())
-        snake2->advance();
+        ;//snake2->advance();
     renderer->update();
 }

@@ -23,7 +23,11 @@ void Snake::paint(QPainter *painter){
 }
 
 void Snake::advance(){
-    SnakePart* head = parts[0];
+    /*SnakePart* head = new SnakePart();
+    head->setX(parts.at(0)->x());
+    head->setY(parts.at(0)->y());
+    head->setValue(parts.at(0)->getValue());
+    head->setDirection(parts.at(0)->direction());
 
     switch(head->direction()){
     case head->UP:
@@ -38,15 +42,29 @@ void Snake::advance(){
     case head->LEFT:
         head->setX( head->x() - head->partSize );
         break;
-    }
+    }*/
 
     for(int i = parts.count()-1; i > 0; i--){
         parts.at(i)->setDirection(parts.at(i-1)->direction());
         parts.at(i)->setX(parts.at(i-1)->x());
         parts.at(i)->setY(parts.at(i-1)->y());
     }
-    parts[0] = head;
-    qDebug() << parts.count();
+    //parts[0] = head;
+    SnakePart* head = parts.at(0);
+    switch(head->direction()){
+    case head->UP:
+        head->setY( head->y() - head->partSize );
+        break;
+    case head->DOWN:
+        head->setY( head->y() + head->partSize );
+        break;
+    case head->RIGHT:
+        head->setX( head->x() + head->partSize );
+        break;
+    case head->LEFT:
+        head->setX( head->x() - head->partSize );
+        break;
+    }
 }
 
 void Snake::resetSnake(){
