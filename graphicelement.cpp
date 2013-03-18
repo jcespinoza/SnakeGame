@@ -3,7 +3,7 @@
 
 GraphicElement::GraphicElement()
 {
-    x = y = z = 0;
+    _x = _y = z = 0;
     partSize = SIZE;
 }
 
@@ -15,7 +15,7 @@ GraphicElement::GraphicElement(int x, int y, int z){
 }
 
 GraphicElement::GraphicElement(GraphicElement* original){
-    setX(original->getX());
-    setY(original->getY());
+    setX(original->x());
+    setY(original->y());
     setZ(original->getZ());
 }

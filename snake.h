@@ -29,6 +29,7 @@ public:
 
 private:
     SnakeList* members;
+    QList<SnakePart*> parts;
     int score;
     int partSize;
     QColor color;

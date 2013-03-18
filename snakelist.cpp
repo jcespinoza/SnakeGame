@@ -163,18 +163,18 @@ void SnakeList::advanceItems(){
     goToFirst();
     SnakePart* head = get();
 
-    switch(head->getDirection()){
+    switch(head->direction()){
     case head->UP:
-        head->setY( head->getY() - head->partSize );
+        head->setY( head->y() - head->partSize );
         break;
     case head->DOWN:
-        head->setY( head->getY() + head->partSize );
+        head->setY( head->y() + head->partSize );
         break;
     case head->RIGHT:
-        head->setX( head->getX() + head->partSize );
+        head->setX( head->x() + head->partSize );
         break;
     case head->LEFT:
-        head->setX( head->getX() - head->partSize );
+        head->setX( head->x() - head->partSize );
         break;
     }
 
@@ -185,9 +185,9 @@ void SnakeList::advanceItems(){
         if(current->prev != 0)
             previ = current->prev->content;
         if(previ != 0 && act != 0){
-            act->setDirection(previ->getDirection());
-            act->setX(previ->getX());
-            act->setY(previ->getY());
+            act->setDirection(previ->direction());
+            act->setX(previ->x());
+            act->setY(previ->y());
             act->setZ(previ->getZ());
             act->advance();
         }

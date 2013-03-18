@@ -5,6 +5,8 @@ Snake::Snake():GraphicElement(){
     setDirection(UP);
     setFillColor(Qt::green);
     members = new SnakeList();
+    parts = QList<SnakePart*>();
+    partSize = SIZE;
 }
 
 Snake::Snake(int x, int y, int z):GraphicElement(x, y, z){
@@ -14,78 +16,108 @@ Snake::Snake(int x, int y, int z):GraphicElement(x, y, z){
 void Snake::paint(QPainter *painter){
     painter->setBrush(getFillColor());
     painter->setPen(getOutlineColor());
-    members->goToFirst();
-    for(int i = 1; i <= members->count(); i++){
-        members->get()->paint(painter);
+
+    for(int k = 0; k < parts.count(); k++){
+        parts.at(k)->paint(painter);
     }
 }
 
 void Snake::advance(){
-    members->advanceItems();
+    SnakePart* head = parts[0];
+
+    switch(head->direction()){
+    case head->UP:
+        head->setY( head->y() - head->partSize );
+        break;
+    case head->DOWN:
+        head->setY( head->y() + head->partSize );
+        break;
+    case head->RIGHT:
+        head->setX( head->x() + head->partSize );
+        break;
+    case head->LEFT:
+        head->setX( head->x() - head->partSize );
+        break;
+    }
+
+    for(int i = parts.count()-1; i > 0; i--){
+        parts.at(i)->setDirection(parts.at(i-1)->direction());
+        parts.at(i)->setX(parts.at(i-1)->x());
+        parts.at(i)->setY(parts.at(i-1)->y());
+    }
+    parts[0] = head;
+    qDebug() << parts.count();
 }
 
 void Snake::resetSnake(){
-    members->clear();
+    parts.clear();
     score = 0;
     setDirection(UP);
 }
 
 void Snake::addHead(SnakePart *headPart){
-    if(members->count()!=0)
+    if(parts.count() != 0)
         return;
-    members->add(headPart);
-    setDirection(headPart->getDirection());
+    parts.push_back(headPart);
+    setDirection(headPart->direction());
     score = headPart->getValue();
 }
 
 void Snake::addPart(SnakePart *nPart){
-    if(members->count() <= 0)
+    if(parts.count() <= 0)
         return;
 
-    members->goToLast();
-    SnakePart* last = members->get();
-    nPart->setDirection( last->getDirection() );
-    switch(nPart->getDirection()){
+    SnakePart* last = parts.back();
+    nPart->setDirection( last->direction() );
+    switch(nPart->direction()){
     case UP:
-        nPart->setX( last->getX() );
-        nPart->setY( last->getY() + partSize );
+        nPart->setX( last->x() );
+        nPart->setY( last->y() + partSize );
         break;
     case DOWN:
-        nPart->setX( last->getX() );
-        nPart->setY( last->getY() - partSize );
+        nPart->setX( last->x() );
+        nPart->setY( last->y() - partSize );
         break;
     case LEFT:
-        nPart->setX( last->getX() + partSize );
-        nPart->setY( last->getY() );
+        nPart->setX( last->x() + partSize );
+        nPart->setY( last->y() );
         break;
     case RIGHT:
-        nPart->setX( last->getX() - partSize );
-        nPart->setY( last->getY() );
+        nPart->setX( last->x() - partSize );
+        nPart->setY( last->y() );
         break;
     }
-    members->add(nPart);
+    parts.push_back(nPart);
     score += nPart->getValue();
 }
 
 SnakePart* Snake::getPart(int pos){
-    return members->at(pos);
+    return parts.at(pos);
 }
 
 SnakePart* Snake::getHead(){
-    if(members != 0){
-        SnakePart* s = members->at(1);
-        return s;
-    }
+    if(!parts.isEmpty())
+        return parts.at(0);
     return 0;
 }
 
 void Snake::setDirection(int arg){
-    qDebug() << "before go to first";
-    members->goToFirst();
-    SnakePart* h = members->get();
-    qDebug() << "got head";
+    this->dir = arg;
+    SnakePart* h = getHead();
     if(h != 0){
-        qDebug() << "was not zero";
         h->setDirection(arg);
     }
+}
+
+bool Snake::colisionWall(){
+    SnakePart* head = getHead();
+    if( head->direction() == LEFT && head->x() - partSize < 0)
+        return true;
+    if(head->direction() == RIGHT && head->x() + partSize > getMaxWidth())
+        return true;
+    if(head->direction() == DOWN && head->y() + 2*partSize > getMaxHeight())
+        return true;
+    if(head->direction() == UP && head->y() - partSize < 0)
+        return true;
+    return false;
 }

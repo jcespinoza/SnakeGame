@@ -12,23 +12,22 @@ SnakePart::SnakePart(){
 }
 
 void SnakePart::paint(QPainter *painter){
-    painter->drawRect(getX(),getY(),getWidth(),getHeight());
+    painter->drawRect(x(),y(),getWidth(),getHeight());
 }
 
 void SnakePart::advance(){
-    qDebug() << "Entered here, advancing";
-    switch(getDirection()){
+    switch(direction()){
         case GraphicElement::UP:
-            setY(getY()-getHeight());
+            setY(y()-getHeight());
             break;
         case GraphicElement::DOWN:
-            setY(getY()+getHeight());
+            setY(y()+getHeight());
             break;
         case GraphicElement::LEFT:
-            setX(getX()-getWidth());
+            setX(x()-getWidth());
             break;
         case GraphicElement::RIGHT:
-            setX(getX()+getWidth());
+            setX(x()+getWidth());
             break;
     }
 }

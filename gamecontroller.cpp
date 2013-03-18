@@ -12,7 +12,6 @@ GameController::GameController()
     snake1 = new Snake();
     snake2 = new Snake();
     renderer = new RenderArea();
-    //elapsed->setInterval(1000);
     elapsed->start(1000);
     connect(refresher, SIGNAL(timeout()), this, SLOT(updateGraphics()));
 }
@@ -59,20 +58,12 @@ void GameController::processKey(int key){
 }
 
 void GameController::processDirection(int who, int dir){
-    if(GraphicElement::UP == dir)
-        qDebug() << "incoming UP";
-    if(GraphicElement::RIGHT == dir)
-        qDebug() << "incoming RIGHT";
-    if(GraphicElement::LEFT == dir)
-        qDebug() << "incoming LEFT";
-    if(GraphicElement::DOWN == dir)
-        qDebug() << "incoming DOW";
     Snake* snk;
     if(who == 1)
         snk = snake1;
     else
         snk = snake2;
-    switch(snk->getDirection()){
+    switch(snk->direction()){
     case GraphicElement::UP:
         if(dir != GraphicElement::DOWN)
             snk->setDirection(dir);
@@ -82,7 +73,6 @@ void GameController::processDirection(int who, int dir){
             snk->setDirection(dir);
         break;
     case GraphicElement::RIGHT:
-        qDebug() << "I should be going here";
         if(dir != GraphicElement::LEFT)
             snk->setDirection(dir);
         break;
@@ -103,6 +93,11 @@ void GameController::startGame(){
     h1->setValue(9);
     snake1->addHead(h1);
     snake1->setFillColor(Qt::green);
+    snake1->setMaxHeight(600);
+    snake1->setMaxWidth(940);
+    SnakePart* p1 = new SnakePart();
+    p1->setValue(7);
+    snake1->addPart(p1);
 
     SnakePart* h2 = new SnakePart();
     h2->setDirection(h2->DOWN);
@@ -110,18 +105,23 @@ void GameController::startGame(){
     h2->setValue(9);
     snake2->addHead(h2);
     snake2->setFillColor(Qt::blue);
+    snake2->setMaxHeight(600);
+    snake2->setMaxWidth(940);
 
     renderer->addGraphicElement(snake1);
     renderer->addGraphicElement(snake2);
 
     if(!refresher->isActive()){
-        refresher->start(100);
+        refresher->start(2000);
     }
 
 }
 
 void GameController::updateGraphics(){
-    snake1->advance();
-    snake2->advance();
+    if(!snake1->colisionWall()){
+        snake1->advance();
+    }
+    if(!snake2->colisionWall())
+        snake2->advance();
     renderer->update();
 }

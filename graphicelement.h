@@ -23,13 +23,13 @@ public:
     GraphicElement(GraphicElement*);
     virtual void paint(QPainter*)=0;
     int getType()const {return type;}
-    virtual void setX(int a){x = a;}
-    virtual void setY(int a){y = a;}
+    virtual void setX(int a){_x = a;}
+    virtual void setY(int a){_y = a;}
     virtual void setZ(int a){z = a;}
-    int getX() const{return x;}
-    int getY() const{return y;}
+    int x() const{return _x;}
+    int y() const{return _y;}
     int getZ() const{return z;}
-    int getDirection()const{return dir;}
+    int direction()const{return dir;}
     QColor getFillColor()const{return fill;}
     void setFillColor(QColor c){fill = c;}
     QColor getOutlineColor()const{return outline;}
@@ -40,7 +40,7 @@ public:
     void setMaxWidth(int w){maxWidth = w;}
 
 private:
-    int type, x, y, z;
+    int type, _x, _y, z;
     QColor fill;
     QColor outline;
     int maxWidth;
