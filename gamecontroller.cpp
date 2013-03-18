@@ -12,8 +12,9 @@ GameController::GameController()
     snake1 = new Snake();
     snake2 = new Snake();
     renderer = new RenderArea();
-    elapsed->setInterval(1000);
-    elapsed->start();
+    //elapsed->setInterval(1000);
+    elapsed->start(1000);
+    connect(refresher, SIGNAL(timeout()), this, SLOT(updateGraphics()));
 }
 
 void GameController::pTimeOut(){
@@ -58,6 +59,14 @@ void GameController::processKey(int key){
 }
 
 void GameController::processDirection(int who, int dir){
+    if(GraphicElement::UP == dir)
+        qDebug() << "incoming UP";
+    if(GraphicElement::RIGHT == dir)
+        qDebug() << "incoming RIGHT";
+    if(GraphicElement::LEFT == dir)
+        qDebug() << "incoming LEFT";
+    if(GraphicElement::DOWN == dir)
+        qDebug() << "incoming DOW";
     Snake* snk;
     if(who == 1)
         snk = snake1;
@@ -73,6 +82,7 @@ void GameController::processDirection(int who, int dir){
             snk->setDirection(dir);
         break;
     case GraphicElement::RIGHT:
+        qDebug() << "I should be going here";
         if(dir != GraphicElement::LEFT)
             snk->setDirection(dir);
         break;
@@ -81,4 +91,37 @@ void GameController::processDirection(int who, int dir){
             snk->setDirection(dir);
         break;
     }
+}
+
+void GameController::startGame(){
+    snake1->resetSnake();
+    snake2->resetSnake();
+
+    SnakePart* h1 = new SnakePart();
+    h1->setDirection(h1->RIGHT);
+    h1->setX(40); h1->setY(40);
+    h1->setValue(9);
+    snake1->addHead(h1);
+    snake1->setFillColor(Qt::green);
+
+    SnakePart* h2 = new SnakePart();
+    h2->setDirection(h2->DOWN);
+    h2->setX(200); h2->setY(200);
+    h2->setValue(9);
+    snake2->addHead(h2);
+    snake2->setFillColor(Qt::blue);
+
+    renderer->addGraphicElement(snake1);
+    renderer->addGraphicElement(snake2);
+
+    if(!refresher->isActive()){
+        refresher->start(100);
+    }
+
+}
+
+void GameController::updateGraphics(){
+    snake1->advance();
+    snake2->advance();
+    renderer->update();
 }

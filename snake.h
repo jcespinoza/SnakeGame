@@ -14,8 +14,10 @@ public:
      * and call the paint() method on each element
      */
     virtual void paint(QPainter *);
+    void setDirection(int arg);
     int getScore() const{return score;}
     void addHead(SnakePart*);
+    SnakePart* getHead();
     void addPart(SnakePart*);
     int getCount() const{return members->count();}
     SnakePart* getPart(int pos);
@@ -28,8 +30,6 @@ public:
 private:
     SnakeList* members;
     int score;
-    int maxWidth;
-    int maxHeight;
     int partSize;
     QColor color;
 };

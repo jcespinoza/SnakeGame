@@ -28,3 +28,7 @@ void RenderArea::focusOutEvent(QFocusEvent *){
 void RenderArea::enterEvent(QEvent *){
     setFocus();
 }
+
+void RenderArea::addGraphicElement(GraphicElement *gr){
+    lista.push_back(gr);
+}

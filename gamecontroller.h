@@ -15,10 +15,12 @@ public:
     RenderArea* getRenderer(){return renderer;}
     void processKey(int);
     void processDirection(int, int);
+    void startGame();
 signals:
     void pTimeOutS();
 private slots:
     void pTimeOut();
+    void updateGraphics();
 signals:
 
 private:

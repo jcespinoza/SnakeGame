@@ -14,6 +14,7 @@ public:
     void setWidth(int w){width = w;}
     int getHeight()const {return height;}
     void setHeight(int h){height = h;}
+    void setDirection(int arg);
 private:
     int value;
     int width;

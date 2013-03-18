@@ -8,7 +8,7 @@ Nodo::Nodo(SnakePart *arg){
 SnakeList::SnakeList()
 {
     first = last = current = 0;
-    countP = 0;
+    conteo = 0;
 }
 
 void SnakeList::goToFirst()
@@ -24,6 +24,7 @@ void SnakeList::goToPrevious()
 {current = (current == 0) ? current: current->prev;}
 
 SnakePart* SnakeList::get(){
+    qDebug() << "in the get method";
     if(current != 0)
         return current->content;
     else
@@ -31,7 +32,14 @@ SnakePart* SnakeList::get(){
 }
 
 SnakePart* SnakeList::at(int pos){
-    if(countP == 0 || pos > countP || pos <= 0)
+    qDebug() << "in the at() method";
+    if(isEmpty()){
+        qDebug() << "it was empty";
+        return 0;
+    }
+    qDebug() << "it was NOT empty";
+    if( (pos > count()) || (pos <= 0))
+
         return 0;
     else{
         goToFirst();
@@ -43,7 +51,7 @@ SnakePart* SnakeList::at(int pos){
 
 void SnakeList::add(SnakePart* cont){
     Nodo* elem = new Nodo(cont);
-    if(countP == 0){
+    if(conteo == 0){
         first = last = elem;
         current = elem;
     }else{
@@ -51,7 +59,7 @@ void SnakeList::add(SnakePart* cont){
         elem->prev = last;
         last = elem;
     }
-    countP++;
+    conteo++;
 }
 
 SnakeList::~SnakeList(){
@@ -67,7 +75,7 @@ void SnakeList::clear(){
         current = first;
     }
     first = last = current = 0;
-    countP = 0;
+    conteo = 0;
 }
 
 void SnakeList::clearRecursively(Nodo* n){
@@ -85,34 +93,40 @@ SnakePart* SnakeList::take(int pos){
     for(int i = 1; i < pos; i++)
         goToNext();
 
-    if(pos != 1 && pos != countP){
+    if(pos != 1 && pos != conteo){
         current->prev->next = current->next;
         current->next->prev = current->prev;
-    }else if(pos == countP){
+    }else if(pos == conteo){
         first = current->next;
         if(current->next != 0)
             current->next->prev = 0;
-    }else if(pos == countP){
+    }else if(pos == conteo){
         last = current->prev;
         current->prev->next = 0;
     }
 
-    if(pos > 0 && pos <= countP){
-        countP--;
+    if(pos > 0 && pos <= conteo){
+        conteo--;
         sp = current->content;
         delete current;
     }
     return sp;
 }
 
-bool SnakeList::isEmpty()
-{ return first == 0 || countP == 0;}
+bool SnakeList::isEmpty(){
+    qDebug() << "in the isEmpty() method";
+    bool f = (this->first == 0);
+    qDebug() << "first == 0" << f;
+    bool c = conteo == 0;
+    qDebug() << "conteo == 0" << c;
+    return f || c;
+}
 
 void SnakeList::goTo(int pos){
     if(pos <= 1){
         goToNext(); return;
     }
-    if(pos == countP - 1){
+    if(pos == conteo - 1){
         goToLast(); return;
     }
     goToFirst();
@@ -124,7 +138,7 @@ void SnakeList::goTo(int pos){
 
 void SnakeList::insert(SnakePart* con, int pos){
     if(pos >= 1){
-        if(isEmpty() || countP <= pos){
+        if(isEmpty() || conteo <= pos){
             add(con); return;
         }
         goTo(pos);
@@ -138,16 +152,34 @@ void SnakeList::insert(SnakePart* con, int pos){
             current->prev = newE;
             newE->next = current;
             newE->prev = current->prev;
-            if(pos > countP)
+            if(pos > conteo)
                 last = newE;
         }
-        countP++;
+        conteo++;
     }
 }
 
 void SnakeList::advanceItems(){
+    goToFirst();
+    SnakePart* head = get();
+
+    switch(head->getDirection()){
+    case head->UP:
+        head->setY( head->getY() - head->partSize );
+        break;
+    case head->DOWN:
+        head->setY( head->getY() + head->partSize );
+        break;
+    case head->RIGHT:
+        head->setX( head->getX() + head->partSize );
+        break;
+    case head->LEFT:
+        head->setX( head->getX() - head->partSize );
+        break;
+    }
+
     goToLast();
-    for(int i = 0; i < count(); i++){
+    for(int i = count()-1; i > 1; i--){
         SnakePart* act = get();
         SnakePart* previ = 0;
         if(current->prev != 0)
@@ -157,6 +189,8 @@ void SnakeList::advanceItems(){
             act->setX(previ->getX());
             act->setY(previ->getY());
             act->setZ(previ->getZ());
+            act->advance();
         }
+        goToPrevious();
     }
 }

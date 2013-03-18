@@ -13,6 +13,7 @@ class RenderArea : public QWidget
     Q_OBJECT
 public:
     explicit RenderArea(QWidget *parent = 0);
+    void addGraphicElement(GraphicElement*);
 private:
     /**
      * @brief paintEvent

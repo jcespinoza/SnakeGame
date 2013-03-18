@@ -4,6 +4,7 @@ Snake::Snake():GraphicElement(){
     score = 0;
     setDirection(UP);
     setFillColor(Qt::green);
+    members = new SnakeList();
 }
 
 Snake::Snake(int x, int y, int z):GraphicElement(x, y, z){
@@ -14,7 +15,7 @@ void Snake::paint(QPainter *painter){
     painter->setBrush(getFillColor());
     painter->setPen(getOutlineColor());
     members->goToFirst();
-    for(int i = 1; i < members->count(); i++){
+    for(int i = 1; i <= members->count(); i++){
         members->get()->paint(painter);
     }
 }
@@ -68,4 +69,23 @@ void Snake::addPart(SnakePart *nPart){
 
 SnakePart* Snake::getPart(int pos){
     return members->at(pos);
+}
+
+SnakePart* Snake::getHead(){
+    if(members != 0){
+        SnakePart* s = members->at(1);
+        return s;
+    }
+    return 0;
+}
+
+void Snake::setDirection(int arg){
+    qDebug() << "before go to first";
+    members->goToFirst();
+    SnakePart* h = members->get();
+    qDebug() << "got head";
+    if(h != 0){
+        qDebug() << "was not zero";
+        h->setDirection(arg);
+    }
 }

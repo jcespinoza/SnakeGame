@@ -15,7 +15,9 @@ public:
     enum DIRECTION{
         UP, RIGHT, DOWN,LEFT
     };
+    int dir;
     static const int SIZE = 20;
+    int partSize;
     GraphicElement();
 	GraphicElement(int x, int y, int z);
     GraphicElement(GraphicElement*);
@@ -28,16 +30,21 @@ public:
     int getY() const{return y;}
     int getZ() const{return z;}
     int getDirection()const{return dir;}
-    void setDirection(int arg){dir = arg;}
     QColor getFillColor()const{return fill;}
     void setFillColor(QColor c){fill = c;}
     QColor getOutlineColor()const{return outline;}
     void setOutlineColor(QColor o){outline = o;}
+    int getMaxHeight()const {return maxHeight;}
+    void setMaxHeight(int h){maxHeight = h;}
+    int getMaxWidth() const {return maxWidth;}
+    void setMaxWidth(int w){maxWidth = w;}
+
 private:
     int type, x, y, z;
-    int dir;
     QColor fill;
     QColor outline;
+    int maxWidth;
+    int maxHeight;
 };
 
 #endif // GRAPHICELEMENT_H

@@ -1,4 +1,5 @@
 #include "snakepart.h"
+#include <QDebug>
 
 SnakePart::SnakePart(){
     setDirection(GraphicElement::UP);
@@ -6,16 +7,16 @@ SnakePart::SnakePart(){
     setX(-1);
     setY(-1);
     setZ(-1);
-    setWidth(20);
-    setHeight(20);
+    setWidth(partSize);
+    setHeight(partSize);
 }
 
 void SnakePart::paint(QPainter *painter){
-    painter->setBrush(Qt::black);
     painter->drawRect(getX(),getY(),getWidth(),getHeight());
 }
 
 void SnakePart::advance(){
+    qDebug() << "Entered here, advancing";
     switch(getDirection()){
         case GraphicElement::UP:
             setY(getY()-getHeight());
@@ -30,4 +31,8 @@ void SnakePart::advance(){
             setX(getX()+getWidth());
             break;
     }
+}
+
+void SnakePart::setDirection(int arg){
+    dir = arg;
 }

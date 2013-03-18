@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->grid->addWidget(renderer);
     segundos = 0;
     connect(controller, SIGNAL(pTimeOutS()), this, SLOT(updateTime()));
+    controller->startGame();
 }
 
 MainWindow::~MainWindow()

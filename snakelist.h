@@ -16,7 +16,9 @@ public:
 class SnakeList
 {
 public:
+    int conteo;
     SnakeList();
+    int count() {return conteo;}
     void goToNext();
     void goToPrevious();
     void goToLast();
@@ -29,14 +31,12 @@ public:
     void add(SnakePart*);
     SnakePart* take(int);
     bool isEmpty();
-    int count() const{return countP;}
     void advanceItems();
     ~SnakeList();
 private:
     Nodo* first;
     Nodo* last;
     Nodo* current;
-    int countP;
     void clearRecursively(Nodo*);
 };
 #endif // SNAKELIST_H
