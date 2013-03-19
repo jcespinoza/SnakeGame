@@ -19,10 +19,12 @@ public:
     void addHead(SnakePart*);
     SnakePart* getHead();
     void addPart(SnakePart*);
+    void addPart(int i);
     int getCount() const{return members->count();}
     SnakePart* getPart(int pos);
     void resetSnake();
     bool colisionWall();
+    bool selfColission();
     void removeHead();
 
 

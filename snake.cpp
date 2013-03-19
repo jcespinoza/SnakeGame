@@ -117,3 +117,36 @@ bool Snake::colisionWall(){
         return true;
     return false;
 }
+
+void Snake::addPart(int i){
+    SnakePart* t = new SnakePart();
+    t->setValue(i);
+    addPart(t);
+}
+
+bool Snake::selfColission(){
+    int xh = getHead()->x();
+    int yh = getHead()->y();
+    for(int i = 3; i < parts.count(); i++){
+        int xi = parts.at(i)->x();
+        int yi = parts.at(i)->y();
+        switch(direction()){
+        case UP:
+            if(yh - partSize == yi && xh == xi)
+                return true;
+            break;
+        case DOWN:
+            if(yh + partSize == yi && xh == xi)
+                return true;
+            break;
+        case LEFT:
+            if(xh - partSize == xi && yh == yi)
+                return true;
+            break;
+        case RIGHT:
+            if(xh + partSize == xi && yh == yi)
+                return true;
+        }
+    }
+    return false;
+}
