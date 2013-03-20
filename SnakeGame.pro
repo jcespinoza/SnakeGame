@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     gamecontroller.cpp \
     snake.cpp \
     snakelist.cpp \
-    snakepart.cpp
+    snakepart.cpp \
+    food.cpp
 
 HEADERS  += mainwindow.h \
     renderarea.h \
@@ -27,6 +28,7 @@ HEADERS  += mainwindow.h \
     gamecontroller.h \
     snakepart.h \
     snakelist.h \
-    snake.h
+    snake.h \
+    food.h
 
 FORMS    += mainwindow.ui
