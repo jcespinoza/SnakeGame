@@ -23,6 +23,7 @@ private:
     int segundos;
 public slots:
     void updateTime();
+    void updateScores(int,int);
 protected:
     virtual void keyPressEvent(QKeyEvent *);
 };

@@ -17,6 +17,7 @@ public:
     void startGame();
 signals:
     void pTimeOutS();
+    void updateScores(int,int);
 private slots:
     void pTimeOut();
     void updateGraphics();

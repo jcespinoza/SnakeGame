@@ -14,7 +14,7 @@ SnakePart::SnakePart(){
 
 void SnakePart::paint(QPainter *painter){
     painter->drawRect(x(),y(),getWidth(),getHeight());
-    painter->drawText(x(), y(), getWidth(), getHeight(), Qt::AlignCenter, QString::number(value));
+    painter->drawText(x(), y(), getWidth(), getHeight(), Qt::AlignCenter, QString::number(getValue()));
 }
 
 void SnakePart::advance(){

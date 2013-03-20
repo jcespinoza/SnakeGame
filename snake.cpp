@@ -157,7 +157,7 @@ bool Snake::collidesWith(Snake *other){
     int myY = getHead()->y();
     int thX = other->getHead()->x();
     int thY = other->getHead()->y();
-    /*Check the heads first*/
+    /*Check the heads first
     switch(direction()){
     case UP:
         if(myY - partSize == thY && myX == thX)
@@ -224,7 +224,6 @@ bool Snake::collidesWith(Snake *other){
             break;
         }
     }
-
     return false;
 }
 
@@ -238,8 +237,23 @@ SnakePart* Snake::takePart(int pos){
 
 void Snake::stealParts(int pos, Snake* other){
     for(int i = pos; i < other->getCount(); i++){
-        addPart(other->getPart(i));
-        other->removePart(i);
+        SnakePart* temp = other->getPart(i);
+        addPart(temp);
+        other->removePart(other->indexOfPart(temp));
+        other->substract( temp->getValue() );
+        addPoints( temp->getValue() );
         i--;
     }
+}
+
+void Snake::substract(int v){
+    score -= v;
+}
+
+void Snake::addPoints(int v){
+    score += v;
+}
+
+int Snake::indexOfPart(SnakePart *pa){
+    return parts.indexOf(pa);
 }

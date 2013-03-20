@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->grid->addWidget(renderer);
     segundos = 0;
     connect(controller, SIGNAL(pTimeOutS()), this, SLOT(updateTime()));
+    connect(controller, SIGNAL(updateScores(int,int)), this, SLOT(updateScores(int,int)));
     controller->startGame();
 }
 
@@ -28,4 +29,9 @@ void MainWindow::updateTime(){
 
 void MainWindow::keyPressEvent(QKeyEvent *event){
     controller->processKey(event->key());
+}
+
+void MainWindow::updateScores(int p1, int p2){
+    ui->lbScore1->setText(QString::number(p1));
+    ui->lbScore2->setText(QString::number(p2));
 }

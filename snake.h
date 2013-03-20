@@ -21,6 +21,7 @@ public:
     SnakePart* getHead();
     void addPart(SnakePart*);
     void addPart(int i);
+    int indexOfPart(SnakePart*);
     int getCount() const{return parts.count();}
     SnakePart* getPart(int pos);
     void removePart(int pos);
@@ -32,7 +33,8 @@ public:
     void removeHead();
     void stealParts(int,Snake*);
     bool collidesWith(Snake*);
-
+    void substract(int);
+    void addPoints(int);
 
 private:
     QList<SnakePart*> parts;
