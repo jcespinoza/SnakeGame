@@ -4,7 +4,6 @@ Snake::Snake():GraphicElement(){
     score = 0;
     setDirection(UP);
     setFillColor(Qt::green);
-    members = new SnakeList();
     parts = QList<SnakePart*>();
     partSize = SIZE;
 }
@@ -149,4 +148,98 @@ bool Snake::selfColission(){
         }
     }
     return false;
+}
+
+/*Este metodo es devuelve true, si choca con la cabeza de otra snake*/
+/*si choca con otra parte, las toma y devuelve false*/
+bool Snake::collidesWith(Snake *other){
+    int myX = getHead()->x();
+    int myY = getHead()->y();
+    int thX = other->getHead()->x();
+    int thY = other->getHead()->y();
+    /*Check the heads first*/
+    switch(direction()){
+    case UP:
+        if(myY - partSize == thY && myX == thX)
+            return true;
+        break;
+    case DOWN:
+        if(myY + partSize == thY && myX == thX)
+            return true;
+        break;
+    case LEFT:
+        if(myX - partSize == thX && myY == thY)
+            return true;
+        break;
+    case RIGHT:
+        if(myX + partSize == thX && myY == thY)
+            return true;
+        break;
+    }
+    /*Now check collision with the body parts*/
+    for(int i = 1; i < other->getCount(); i++){
+        SnakePart* temp = other->getPart(i);
+        thX = temp->x();
+        thY = temp->y();
+        switch(direction()){
+        case UP:
+            if(myY - partSize == thY && myX == thX){
+                if(getHead()->getValue() > temp->getValue())
+                    stealParts(i, other);
+                else if(getHead()->getValue() < temp->getValue())
+                    other->stealParts(1, this);
+                else
+                    return true;
+            }
+            break;
+        case DOWN:
+            if(myY + partSize == thY && myX == thX){
+                if(getHead()->getValue() > temp->getValue())
+                    stealParts(i, other);
+                else if(getHead()->getValue() < temp->getValue())
+                    other->stealParts(1, this);
+                else
+                    return true;
+            }
+            break;
+        case LEFT:
+            if(myX - partSize == thX && myY == thY){
+                if(getHead()->getValue() > temp->getValue())
+                    stealParts(i, other);
+                else if(getHead()->getValue() < temp->getValue())
+                    other->stealParts(1, this);
+                else
+                    return true;
+            }
+            break;
+        case RIGHT:
+            if(myX + partSize == thX && myY == thY){
+                if(getHead()->getValue() > temp->getValue())
+                    stealParts(i, other);
+                else if(getHead()->getValue() < temp->getValue())
+                    other->stealParts(1, this);
+                else
+                    return true;
+            }
+            break;
+        }
+    }
+
+    return false;
+}
+
+void Snake::removePart(int pos){
+    parts.removeAt(pos);
+}
+
+SnakePart* Snake::takePart(int pos){
+    return parts.takeAt(pos);
+}
+
+void Snake::stealParts(int pos, Snake* other){
+    for(int i = pos; i < other->getCount(); i++){
+        addPart(other->getPart(i));
+        other->removePart(i);
+        i--;
+    }
 }

@@ -1,7 +1,8 @@
 #ifndef SNAKE_H
 #define SNAKE_H
 #include "graphicelement.h"
-#include "snakelist.h"
+#include "snakepart.h"
+
 
 class Snake: public GraphicElement{
 public:
@@ -20,17 +21,20 @@ public:
     SnakePart* getHead();
     void addPart(SnakePart*);
     void addPart(int i);
-    int getCount() const{return members->count();}
+    int getCount() const{return parts.count();}
     SnakePart* getPart(int pos);
+    void removePart(int pos);
+    SnakePart* takePart(int pos);
+    QList<SnakePart*> getPartsList(){return parts;}
     void resetSnake();
     bool colisionWall();
     bool selfColission();
     void removeHead();
-
+    void stealParts(int,Snake*);
+    bool collidesWith(Snake*);
 
 
 private:
-    SnakeList* members;
     QList<SnakePart*> parts;
     int score;
     int partSize;

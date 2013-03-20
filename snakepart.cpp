@@ -9,10 +9,12 @@ SnakePart::SnakePart(){
     setZ(-1);
     setWidth(partSize);
     setHeight(partSize);
+    _head = false;
 }
 
 void SnakePart::paint(QPainter *painter){
     painter->drawRect(x(),y(),getWidth(),getHeight());
+    painter->drawText(x(), y(), getWidth(), getHeight(), Qt::AlignCenter, QString::number(value));
 }
 
 void SnakePart::advance(){

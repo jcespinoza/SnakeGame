@@ -95,14 +95,14 @@ void GameController::startGame(){
     snake1->setFillColor(Qt::green);
     snake1->setMaxHeight(600);
     snake1->setMaxWidth(940);
-    snake1->addPart(7);
+    snake1->addPart(8);
     snake1->addPart(6);
     snake1->addPart(7);
     snake1->addPart(5);
     snake1->addPart(7);
     snake1->addPart(6);
     snake1->addPart(7);
-    snake1->addPart(5);
+    snake1->addPart(9);
 
     SnakePart* h2 = new SnakePart();
     h2->setDirection(h2->DOWN);
@@ -123,10 +123,9 @@ void GameController::startGame(){
 }
 
 void GameController::updateGraphics(){
-    if(!snake1->colisionWall() && !snake1->selfColission()){
+    if(!snake1->colisionWall() && !snake1->selfColission() && !snake1->collidesWith(snake2))
         snake1->advance();
-    }
-    if(!snake2->colisionWall())
+    if(!snake2->colisionWall() && !snake2->selfColission() && !snake2->collidesWith(snake1))
         snake2->advance();
     renderer->update();
 }

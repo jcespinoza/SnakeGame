@@ -15,8 +15,11 @@ public:
     int getHeight()const {return height;}
     void setHeight(int h){height = h;}
     void setDirection(int arg);
+    bool isHead()const{return _head;}
+    void makeHead(){_head = true;}
 private:
     int value;
+    bool _head;
     int width;
     int height;
 };
