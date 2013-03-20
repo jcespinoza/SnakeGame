@@ -3,6 +3,7 @@
 #include <QTimer>
 #include "renderarea.h"
 #include "snake.h"
+#include "food.h"
 
 class GameController: public QObject
 {
