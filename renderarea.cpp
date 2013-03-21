@@ -47,3 +47,11 @@ void RenderArea::addFoodElement(int mul){
 void RenderArea::removeFood(int p){
     foodl.removeAt(p);
 }
+
+void RenderArea::clearFood(){
+    foodl.clear();
+}
+
+void RenderArea::removeGraphics(){
+    lista.clear();
+}

@@ -28,10 +28,11 @@ public:
     void removePart(int pos);
     SnakePart* takePart(int pos);
     QList<SnakePart*> getPartsList(){return parts;}
+    void setHeadValue(int);
     void resetSnake();
     bool colisionWall();
     bool selfColission();
-    void removeHead();
+    bool removeHead();
     void stealParts(int,Snake*);
     bool collidesWith(Snake*);
     bool collidesWith(int x, int y);

@@ -32,12 +32,13 @@ signals:
     void pTimeOutS();
     void updateScores(int,int);
     void gameStarted();
-    void gameFinished();
+    void gameFinished(int,int);
 private slots:
     void pTimeOut();
     void updateGraphics();
     void generateFood();
 private:
+    void resetData();
     QTimer *elapsed;
     QTimer* refresher;
     QTimer* foodGenTimer;

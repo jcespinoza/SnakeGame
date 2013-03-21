@@ -48,6 +48,8 @@ void Snake::advance(){
 
 void Snake::resetSnake(){
     parts.clear();
+    for(int i = 0; i < parts.count(); i++)
+        delete parts.takeFirst();
     score = 0;
     setDirection(UP);
 }
@@ -109,13 +111,13 @@ void Snake::setDirection(int arg){
 bool Snake::colisionWall(){
     SnakePart* head = getHead();
     if( head->direction() == LEFT && head->x() - partSize < 0)
-        return true;
+        return true & removeHead();
     if(head->direction() == RIGHT && head->x() + partSize > getMaxWidth())
-        return true;
+        return true & removeHead();
     if(head->direction() == DOWN && head->y() + 2*partSize > getMaxHeight())
-        return true;
+        return true & removeHead();
     if(head->direction() == UP && head->y() - partSize < 0)
-        return true;
+        return true & removeHead();
     return false;
 }
 
@@ -205,7 +207,7 @@ bool Snake::collidesWith(Snake *other){
                         stealParts(i, other);
                 //if their value is higher
                 else if(getHead()->getValue() < temp->getValue())
-                    //eat all their parts except for the head
+                    //let the other eat all my parts except for the head
                     other->stealParts(1, this);
                 else
                     //if the values are equal return true, and I'll stop advancing
@@ -261,6 +263,14 @@ void Snake::removePart(int pos){
     parts.removeAt(pos);
 }
 
+bool Snake::removeHead(){
+    if(parts.count() > 1){
+        removePart(0);
+        setDirection(parts.at(0)->direction());
+    }
+    return true;
+}
+
 SnakePart* Snake::takePart(int pos){
     substract(parts.at(pos)->getValue());
     return parts.takeAt(pos);
@@ -290,4 +300,9 @@ void Snake::addPoints(int v){
 
 int Snake::indexOfPart(SnakePart *pa){
     return parts.indexOf(pa);
+}
+
+void Snake::setHeadValue(int i){
+    if(parts.count() > 1)
+        parts.at(0)->setValue(i);
 }

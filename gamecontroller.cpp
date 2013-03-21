@@ -4,7 +4,7 @@
 GameController::GameController()
 {
     _seconds = 0;
-    _maxSeconds = 60;
+    _maxSeconds = 120;
     srand(time(NULL));
     elapsed = new QTimer(this);
     connect(elapsed, SIGNAL(timeout()), this, SLOT(pTimeOut()));
@@ -12,12 +12,9 @@ GameController::GameController()
     snake1 = new Snake();
     snake2 = new Snake();
     renderer = new RenderArea();
-    elapsed->start(1000);
     connect(refresher, SIGNAL(timeout()), this, SLOT(updateGraphics()));
     foodGenTimer = new QTimer(this);
     connect(foodGenTimer, SIGNAL(timeout()), this, SLOT(generateFood()));
-    generateFood();
-    foodGenTimer->start(10000);
 }
 
 void GameController::pTimeOut(){
@@ -63,6 +60,12 @@ void GameController::processKey(int key){
     case Qt::Key_D:
         processDirection(2,GraphicElement::RIGHT);
         break;
+    case Qt::Key_Q:
+        snake2->setHeadValue(9);
+        break;
+    case Qt::Key_P:
+        snake1->setHeadValue(9);
+        break;
     }
 }
 
@@ -93,6 +96,7 @@ void GameController::processDirection(int who, int dir){
 }
 
 void GameController::startGame(){
+    elapsed->start(1000);
     snake1->resetSnake();
     snake2->resetSnake();
 
@@ -110,23 +114,25 @@ void GameController::startGame(){
 
 
     SnakePart* h2 = new SnakePart();
-    dir = rand() % 3;
+    dir = rand() % 4;
     rx = rand()%(940/40)*40;
     ry = rand()%(600/40)*40;
     h2->setDirection(dir);
     h2->setX(rx); h2->setY(ry);
-    h2->setValue(rand()%9);
+    h2->setValue(rand()%(9-1)+1);
     snake2->addHead(h2);
-    snake2->setFillColor(Qt::blue);
+    snake2->setFillColor(Qt::cyan);
     snake2->setMaxHeight(600);
     snake2->setMaxWidth(940);
 
     renderer->addGraphicElement(snake1);
     renderer->addGraphicElement(snake2);
 
-    if(!refresher->isActive()){
+    if(!refresher->isActive())
         refresher->start(100);
-    }
+
+    generateFood();
+    foodGenTimer->start(10000);
     emit gameStarted();
 }
 
@@ -166,15 +172,22 @@ Pair GameController::generateXY(int minw, int maxw, int minh, int maxh, int mult
 }
 
 void GameController::stopGame(){
-    elapsed->stop();
-    refresher->stop();
-    foodGenTimer->stop();
-    emit gameFinished();
+    resetData();
+    emit gameFinished(snake1->getScore(), snake2->getScore());
 }
 
 void GameController::generateFood(){
-    int nF = rand()%4+1; //number of food items to generate
+    int nF = rand()%6+1; //number of food items to generate
     for(int i = 0; i < nF; i++){
         renderer->addFoodElement(Snake::PSIZE);
     }
+}
+
+void GameController::resetData(){
+    elapsed->stop();
+    refresher->stop();
+    foodGenTimer->stop();
+    renderer->clearFood();
+    renderer->removeGraphics();
+    _seconds = 0;
 }

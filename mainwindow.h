@@ -21,6 +21,11 @@ private:
     RenderArea* renderer;
     GameController* controller;
     int segundos;
+private slots:
+    void showFinalScores(int,int);
+    void on_actionConfiguracion_triggered();
+    void resetTime();
+
 public slots:
     void updateTime();
     void updateScores(int,int);

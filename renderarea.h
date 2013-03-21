@@ -18,6 +18,8 @@ public:
     void addFoodElement();
     void addFoodElement(int);
     void removeFood(int);
+    void clearFood();
+    void removeGraphics();
     void setWidthHeight(int w,int h){_width = w; _height = h;}
 private:
     /**
