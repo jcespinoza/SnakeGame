@@ -16,7 +16,7 @@ public:
         UP, RIGHT, DOWN,LEFT
     };
     int dir;
-    static const int SIZE = 40;
+    static const int SIZE = 20;
     int partSize;
     GraphicElement();
 	GraphicElement(int x, int y, int z);

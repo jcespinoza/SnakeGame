@@ -6,7 +6,7 @@
 #include <QPainter>
 #include <QPaintEvent>
 #include <QList>
-#include "graphicelement.h"
+#include "food.h"
 
 class RenderArea : public QWidget
 {
@@ -14,6 +14,11 @@ class RenderArea : public QWidget
 public:
     explicit RenderArea(QWidget *parent = 0);
     void addGraphicElement(GraphicElement*);
+    QList<Food> getFoodList()const{return foodl;}
+    void addFoodElement();
+    void addFoodElement(int);
+    void removeFood(int);
+    void setWidthHeight(int w,int h){_width = w; _height = h;}
 private:
     /**
      * @brief paintEvent
@@ -24,8 +29,10 @@ private:
     void focusInEvent(QFocusEvent *);
     void focusOutEvent(QFocusEvent *);
     void enterEvent(QEvent *);
-    //ListOfGraphicElements* list;
     QList<GraphicElement*> lista;
+    QList<Food> foodl;
+    int _width;
+    int _height;
 signals:
     
 public slots:

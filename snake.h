@@ -7,6 +7,7 @@
 class Snake: public GraphicElement{
 public:
     Snake();
+    static const int PSIZE = SIZE;
     Snake(int x, int y, int z);
     void advance();
     /**
@@ -33,6 +34,7 @@ public:
     void removeHead();
     void stealParts(int,Snake*);
     bool collidesWith(Snake*);
+    bool collidesWith(int x, int y);
     void substract(int);
     void addPoints(int);
 

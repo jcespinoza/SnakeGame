@@ -24,18 +24,20 @@ public:
     void processDirection(int, int);
     void startGame();
     void stopGame();
-    Pair generateXY(int,int,int);
+    Pair generateXY(int minw, int maxw, int minh, int maxh, int mult);
 signals:
     void pTimeOutS();
     void updateScores(int,int);
 private slots:
     void pTimeOut();
     void updateGraphics();
+    void generateFood();
 signals:
 
 private:
     QTimer *elapsed;
     QTimer* refresher;
+    QTimer* foodGenTimer;
     RenderArea* renderer;
     Snake* snake1;
     Snake* snake2;

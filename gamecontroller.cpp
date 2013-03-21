@@ -12,6 +12,10 @@ GameController::GameController()
     renderer = new RenderArea();
     elapsed->start(1000);
     connect(refresher, SIGNAL(timeout()), this, SLOT(updateGraphics()));
+    foodGenTimer = new QTimer(this);
+    connect(foodGenTimer, SIGNAL(timeout()), this, SLOT(generateFood()));
+    generateFood();
+    foodGenTimer->start(10000);
 }
 
 void GameController::pTimeOut(){
@@ -24,6 +28,7 @@ GameController::~GameController(){
     delete snake1;
     delete snake2;
     delete renderer;
+    delete foodGenTimer;
 }
 
 void GameController::processKey(int key){
@@ -120,18 +125,35 @@ void GameController::startGame(){
 }
 
 void GameController::updateGraphics(){
-    if(!snake1->colisionWall() && !snake1->selfColission() && !snake1->collidesWith(snake2))
+    QList<Food> food = renderer->getFoodList();
+    if(!snake1->colisionWall() && !snake1->selfColission() && !snake1->collidesWith(snake2)){
+        for(int i = 0; i < food.count(); i++){
+            Food f = food.at(i);
+            if(snake1->collidesWith( f.x(), f.y() )){
+                renderer->removeFood(i);
+                snake1->addPart(f.value());
+            }
+        }
         snake1->advance();
-    if(!snake2->colisionWall() && !snake2->selfColission() && !snake2->collidesWith(snake1))
+    }
+    if(!snake2->colisionWall() && !snake2->selfColission() && !snake2->collidesWith(snake1)){
+        for(int i = 0; i < food.count(); i++){
+            Food f = food.at(i);
+            if(snake2->collidesWith( f.x(), f.y() )){
+                renderer->removeFood(i);
+                snake2->addPart(f.value());
+            }
+        }
         snake2->advance();
+    }
     emit updateScores(snake1->getScore(), snake2->getScore());
     renderer->update();    
 }
 
-Pair GameController::generateXY(int min, int max, int mult){
+Pair GameController::generateXY(int minw, int maxw, int minh, int maxh, int mult){
     Pair par;
-    int s1 = rand()%((max-min)/mult) * mult;
-    int s2 = rand()%((max-min)/mult) * mult;
+    int s1 = rand()%((maxw-minw)/20) * mult;
+    int s2 = rand()%((maxh-minh)/20) * mult;
     par.first = s1;
     par.second = s2;
     return par;
@@ -139,4 +161,11 @@ Pair GameController::generateXY(int min, int max, int mult){
 
 void GameController::stopGame(){
 
+}
+
+void GameController::generateFood(){
+    int nF = rand()%4+1; //number of food items to generate
+    for(int i = 0; i < nF; i++){
+        renderer->addFoodElement(Snake::PSIZE);
+    }
 }

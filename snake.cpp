@@ -1,4 +1,5 @@
 #include "snake.h"
+#include <QDebug>
 
 Snake::Snake():GraphicElement(){
     score = 0;
@@ -147,6 +148,30 @@ bool Snake::selfColission(){
             if(xh + partSize == xi && yh == yi)
                 return true;
         }
+    }
+    return false;
+}
+
+bool Snake::collidesWith(int xt, int yt){
+    int xh = getHead()->x();
+    int yh = getHead()->y();
+    switch(direction()){
+    case RIGHT:
+        if(xh + partSize == xt && yh == yt)
+            return true;
+        return false;
+    case LEFT:
+        if(xh - partSize == xt && yh == yt)
+            return true;
+        return false;
+    case UP:
+        if(yh - partSize == yt && xh == xt)
+            return true;
+        return false;
+    case DOWN:
+        if(yh + partSize == yt && xh == xt)
+            return true;
+        return false;
     }
     return false;
 }
