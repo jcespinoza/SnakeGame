@@ -131,3 +131,15 @@ void GameController::updateGraphics(){
     renderer->update();    
 }
 
+Pair GameController::generateXY(int min, int max, int mult){
+    Pair par;
+    int s1 = rand()%((max-min)/mult) * mult;
+    int s2 = rand()%((max-min)/mult) * mult;
+    par.first = s1;
+    par.second = s2;
+    return par;
+}
+
+void GameController::stopGame(){
+
+}

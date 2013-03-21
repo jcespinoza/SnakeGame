@@ -5,6 +5,12 @@
 #include "snake.h"
 #include "food.h"
 
+class Pair{
+public:
+    int first;
+    int second;
+};
+
 class GameController: public QObject
 {
     Q_OBJECT
@@ -16,6 +22,8 @@ public:
     void processKey(int);
     void processDirection(int, int);
     void startGame();
+    void stopGame();
+    Pair generateXY(int,int,int);
 signals:
     void pTimeOutS();
     void updateScores(int,int);

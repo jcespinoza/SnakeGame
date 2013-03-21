@@ -55,7 +55,7 @@ void Snake::addHead(SnakePart *headPart){
         return;
     parts.push_back(headPart);
     setDirection(headPart->direction());
-    score = headPart->getValue();
+    addPoints(headPart->getValue());
 }
 
 void Snake::addPart(SnakePart *nPart){
@@ -83,7 +83,7 @@ void Snake::addPart(SnakePart *nPart){
         break;
     }
     parts.push_back(nPart);
-    score += nPart->getValue();
+    addPoints(nPart->getValue());
 }
 
 SnakePart* Snake::getPart(int pos){
@@ -231,10 +231,12 @@ bool Snake::collidesWith(Snake *other){
 }
 
 void Snake::removePart(int pos){
+    substract(parts.at(pos)->getValue());
     parts.removeAt(pos);
 }
 
 SnakePart* Snake::takePart(int pos){
+    substract(parts.at(pos)->getValue());
     return parts.takeAt(pos);
 }
 
@@ -248,10 +250,6 @@ void Snake::stealParts(int pos, Snake* other){
         //remove that part from their tail
         other->removePart(other->indexOfPart(temp));
         //substract the part's value from their score
-        other->substract( temp->getValue() );
-        //add the part's value to my score
-        addPoints( temp->getValue() );
-        //decrease the counter because, the Other has 1 less item now
         i--;
     }
 }
