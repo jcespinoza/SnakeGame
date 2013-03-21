@@ -3,6 +3,7 @@
 Snake::Snake():GraphicElement(){
     score = 0;
     setDirection(UP);
+    setType(SNAKE);
     setFillColor(Qt::green);
     parts = QList<SnakePart*>();
     partSize = SIZE;

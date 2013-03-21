@@ -3,9 +3,7 @@
 
 GameController::GameController()
 {
-    int x = rand() % (700 - 0) + 0;
-    int y = rand() % (600);
-    int z = 0;
+    srand(time(NULL));
     elapsed = new QTimer(this);
     connect(elapsed, SIGNAL(timeout()), this, SLOT(pTimeOut()));
     refresher = new QTimer(this);
@@ -88,26 +86,25 @@ void GameController::startGame(){
     snake2->resetSnake();
 
     SnakePart* h1 = new SnakePart();
-    h1->setDirection(h1->RIGHT);
-    h1->setX(40); h1->setY(40);
-    h1->setValue(9);
+    int rx = rand()%(940/40)*40;
+    int ry = rand()%(600/40)*40;
+    int dir = rand() % (4);
+    h1->setDirection(dir);
+    h1->setX(rx); h1->setY(ry);
+    h1->setValue(rand()%(9-1)+1);
     snake1->addHead(h1);
     snake1->setFillColor(Qt::green);
     snake1->setMaxHeight(600);
     snake1->setMaxWidth(940);
-    snake1->addPart(8);
-    snake1->addPart(6);
-    snake1->addPart(7);
-    snake1->addPart(5);
-    snake1->addPart(7);
-    snake1->addPart(6);
-    snake1->addPart(7);
-    snake1->addPart(9);
+
 
     SnakePart* h2 = new SnakePart();
-    h2->setDirection(h2->LEFT);
-    h2->setX(40); h2->setY(80);
-    h2->setValue(8);
+    dir = rand() % 3;
+    rx = rand()%(940/40)*40;
+    ry = rand()%(600/40)*40;
+    h2->setDirection(dir);
+    h2->setX(rx); h2->setY(ry);
+    h2->setValue(rand()%9);
     snake2->addHead(h2);
     snake2->setFillColor(Qt::blue);
     snake2->setMaxHeight(600);

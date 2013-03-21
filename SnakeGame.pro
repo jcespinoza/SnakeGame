@@ -18,7 +18,6 @@ SOURCES += main.cpp\
     graphicelement.cpp \
     gamecontroller.cpp \
     snake.cpp \
-    snakelist.cpp \
     snakepart.cpp \
     food.cpp
 
@@ -27,7 +26,6 @@ HEADERS  += mainwindow.h \
     graphicelement.h \
     gamecontroller.h \
     snakepart.h \
-    snakelist.h \
     snake.h \
     food.h
 

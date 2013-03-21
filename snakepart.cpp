@@ -9,6 +9,7 @@ SnakePart::SnakePart(){
     setZ(-1);
     setWidth(partSize);
     setHeight(partSize);
+    setType(SNAKE_ELEMENT);
     _head = false;
 }
 
@@ -35,5 +36,8 @@ void SnakePart::advance(){
 }
 
 void SnakePart::setDirection(int arg){
-    dir = arg;
+    if(arg >= UP && arg <= LEFT)
+        dir = arg;
+    else
+        dir = UP;
 }

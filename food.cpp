@@ -2,6 +2,7 @@
 
 Food::Food():GraphicElement()
 {
+    setType(FOOD);
 }
 
 void Food::paint(QPainter* painter){

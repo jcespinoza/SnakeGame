@@ -3,6 +3,7 @@
 #include <QTimer>
 #include "renderarea.h"
 #include "snake.h"
+#include "time.h"
 #include "food.h"
 
 class Pair{

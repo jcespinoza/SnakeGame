@@ -10,7 +10,7 @@ class GraphicElement
 {
 public:
     enum Type{
-        SNAKE_ELEMENT, HEAD, FOOD
+        SNAKE_ELEMENT, HEAD, FOOD, SNAKE
     };
     enum DIRECTION{
         UP, RIGHT, DOWN,LEFT
@@ -23,6 +23,7 @@ public:
     GraphicElement(GraphicElement*);
     virtual void paint(QPainter*)=0;
     int getType()const {return type;}
+    void setType(int t){type = t;}
     virtual void setX(int a){_x = a;}
     virtual void setY(int a){_y = a;}
     virtual void setZ(int a){z = a;}
