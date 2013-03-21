@@ -25,15 +25,18 @@ public:
     void startGame();
     void stopGame();
     Pair generateXY(int minw, int maxw, int minh, int maxh, int mult);
+    int seconds()const{return _seconds;}
+    int maxSeconds()const{return _maxSeconds;}
+    void setMaxSeconds(int m){_maxSeconds = m;}
 signals:
     void pTimeOutS();
     void updateScores(int,int);
+    void gameStarted();
+    void gameFinished();
 private slots:
     void pTimeOut();
     void updateGraphics();
     void generateFood();
-signals:
-
 private:
     QTimer *elapsed;
     QTimer* refresher;
@@ -41,7 +44,9 @@ private:
     RenderArea* renderer;
     Snake* snake1;
     Snake* snake2;
-
+    int squareSize;
+    int _seconds;
+    int _maxSeconds;
 };
 
 #endif // GAMECONTROLLER_H

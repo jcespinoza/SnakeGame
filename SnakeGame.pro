@@ -29,4 +29,5 @@ HEADERS  += mainwindow.h \
     snake.h \
     food.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    startup.ui

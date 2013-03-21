@@ -3,6 +3,8 @@
 
 GameController::GameController()
 {
+    _seconds = 0;
+    _maxSeconds = 60;
     srand(time(NULL));
     elapsed = new QTimer(this);
     connect(elapsed, SIGNAL(timeout()), this, SLOT(pTimeOut()));
@@ -19,7 +21,11 @@ GameController::GameController()
 }
 
 void GameController::pTimeOut(){
-    emit pTimeOutS();
+    _seconds++;
+    if(_seconds < _maxSeconds)
+        emit pTimeOutS();
+    else
+        emit stopGame();
 }
 
 GameController::~GameController(){
@@ -121,7 +127,7 @@ void GameController::startGame(){
     if(!refresher->isActive()){
         refresher->start(100);
     }
-
+    emit gameStarted();
 }
 
 void GameController::updateGraphics(){
@@ -160,7 +166,10 @@ Pair GameController::generateXY(int minw, int maxw, int minh, int maxh, int mult
 }
 
 void GameController::stopGame(){
-
+    elapsed->stop();
+    refresher->stop();
+    foodGenTimer->stop();
+    emit gameFinished();
 }
 
 void GameController::generateFood(){
