@@ -150,52 +150,49 @@ bool Snake::selfColission(){
     return false;
 }
 
-/*Este metodo es devuelve true, si choca con la cabeza de otra snake*/
+/*Este metodo es devuelve true, si choca con la cabeza de otra snake y tienen el mismo valor*/
 /*si choca con otra parte, las toma y devuelve false*/
 bool Snake::collidesWith(Snake *other){
-    int myX = getHead()->x();
-    int myY = getHead()->y();
-    int thX = other->getHead()->x();
-    int thY = other->getHead()->y();
-    /*Check the heads first
-    switch(direction()){
-    case UP:
-        if(myY - partSize == thY && myX == thX)
-            return true;
-        break;
-    case DOWN:
-        if(myY + partSize == thY && myX == thX)
-            return true;
-        break;
-    case LEFT:
-        if(myX - partSize == thX && myY == thY)
-            return true;
-        break;
-    case RIGHT:
-        if(myX + partSize == thX && myY == thY)
-            return true;
-        break;
-    }
-    /*Now check collision with the body parts*/
-    for(int i = 1; i < other->getCount(); i++){
+    int myX = getHead()->x(); //My X position
+    int myY = getHead()->y(); //My Y position
+    int thX = other->getHead()->x(); //Their X position
+    int thY = other->getHead()->y(); //Their Y position
+    //iteratte through their parts list
+    for(int i = 0; i < other->getCount(); i++){
+        //save the curret part
         SnakePart* temp = other->getPart(i);
+        //save its XY values
         thX = temp->x();
         thY = temp->y();
+        //take action depending on my direction
         switch(direction()){
+        //in case I'm going up
         case UP:
+            //if the current part is in front of me
             if(myY - partSize == thY && myX == thX){
+                //check if my value is higher
                 if(getHead()->getValue() > temp->getValue())
-                    stealParts(i, other);
+                    //then make sure I dont eat their head
+                    if(i == 0)
+                        stealParts(1, other);
+                    else
+                        stealParts(i, other);
+                //if their value is higher
                 else if(getHead()->getValue() < temp->getValue())
+                    //eat all their parts except for the head
                     other->stealParts(1, this);
                 else
+                    //if the values are equal return true, and I'll stop advancing
                     return true;
             }
             break;
         case DOWN:
             if(myY + partSize == thY && myX == thX){
                 if(getHead()->getValue() > temp->getValue())
-                    stealParts(i, other);
+                    if(i == 0)
+                        stealParts(1, other);
+                    else
+                        stealParts(i, other);
                 else if(getHead()->getValue() < temp->getValue())
                     other->stealParts(1, this);
                 else
@@ -205,7 +202,10 @@ bool Snake::collidesWith(Snake *other){
         case LEFT:
             if(myX - partSize == thX && myY == thY){
                 if(getHead()->getValue() > temp->getValue())
-                    stealParts(i, other);
+                    if(i == 0)
+                        stealParts(1, other);
+                    else
+                        stealParts(i, other);
                 else if(getHead()->getValue() < temp->getValue())
                     other->stealParts(1, this);
                 else
@@ -215,7 +215,10 @@ bool Snake::collidesWith(Snake *other){
         case RIGHT:
             if(myX + partSize == thX && myY == thY){
                 if(getHead()->getValue() > temp->getValue())
-                    stealParts(i, other);
+                    if(i == 0)
+                        stealParts(1, other);
+                    else
+                        stealParts(i, other);
                 else if(getHead()->getValue() < temp->getValue())
                     other->stealParts(1, this);
                 else
@@ -236,12 +239,19 @@ SnakePart* Snake::takePart(int pos){
 }
 
 void Snake::stealParts(int pos, Snake* other){
+    //iterate through their parts list
     for(int i = pos; i < other->getCount(); i++){
+        //save the current part
         SnakePart* temp = other->getPart(i);
+        //append that part to my tail
         addPart(temp);
+        //remove that part from their tail
         other->removePart(other->indexOfPart(temp));
+        //substract the part's value from their score
         other->substract( temp->getValue() );
+        //add the part's value to my score
         addPoints( temp->getValue() );
+        //decrease the counter because, the Other has 1 less item now
         i--;
     }
 }
